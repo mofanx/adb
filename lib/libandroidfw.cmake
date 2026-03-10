@@ -20,9 +20,6 @@ add_library(libandroidfw STATIC
     ${SRC}/base/libs/androidfw/NinePatch.cpp
     ${SRC}/base/libs/androidfw/ObbFile.cpp
     ${SRC}/base/libs/androidfw/PosixUtils.cpp
-    ${SRC}/base/libs/androidfw/Png.cpp
-    ${SRC}/base/libs/androidfw/PngChunkFilter.cpp
-    ${SRC}/base/libs/androidfw/PngCrunch.cpp
     ${SRC}/base/libs/androidfw/ResourceTimer.cpp
     ${SRC}/base/libs/androidfw/ResourceTypes.cpp
     ${SRC}/base/libs/androidfw/ResourceUtils.cpp
@@ -47,7 +44,6 @@ target_include_directories(libandroidfw PUBLIC
     ${SRC}/logging/liblog/include
     ${SRC}/core/libsystem/include
     ${SRC}/core/libutils/include
-    ${SRC}/libpng
     ${SRC}/libbase/include
     ${SRC}/native/include
     ${SRC}/native/libs/binder/include
