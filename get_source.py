@@ -68,6 +68,13 @@ def patches():
     if protobuf_stubs.exists() and not config_dest.exists():
         shutil.copy2(Path("patches/misc/protobuf_config.h"), config_dest)
 
+    # Fix openscreen packaged_task noexcept incompatibility with NDK libc++
+    task_runner_h = Path.cwd() / "src/openscreen/platform/api/task_runner.h"
+    if task_runner_h.exists():
+        subprocess.run(
+            "sed -i 's/packaged_task<void() noexcept>/packaged_task<void()>/g' {}".format(task_runner_h),
+            shell=True)
+
     # Symlink googletest to boringssl third_party
     src = Path.cwd() / "src/googletest"
     dest = Path.cwd() / "src/boringssl/src/third_party/googletest"

@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: src
-          key: aosp-src-${{ env.AOSP_TAG }}-adb-v3
+          key: aosp-src-${{ env.AOSP_TAG }}-adb-v5
 
       - name: Fetch AOSP source code
         run: python3 get_source.py --tags ${{ env.AOSP_TAG }}
