@@ -62,6 +62,12 @@ def patches():
         pattern = "'s#/usr/src/googletest#${CMAKE_SOURCE_DIR}/src/googletest#g'"
         subprocess.run("sed -i {} {}".format(pattern, abseil_cmake), shell=True)
 
+    # Fix protobuf missing config.h for CMake builds
+    protobuf_stubs = Path.cwd() / "src/protobuf/src/google/protobuf/stubs"
+    config_dest = protobuf_stubs / "config.h"
+    if protobuf_stubs.exists() and not config_dest.exists():
+        shutil.copy2(Path("patches/misc/protobuf_config.h"), config_dest)
+
     # Symlink googletest to boringssl third_party
     src = Path.cwd() / "src/googletest"
     dest = Path.cwd() / "src/boringssl/src/third_party/googletest"
