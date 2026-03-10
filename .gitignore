@@ -1,0 +1,19 @@
+# AOSP source code (fetched during build)
+src/
+
+# Build directories
+build*/
+output/
+
+# NDK
+android-ndk-*/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
