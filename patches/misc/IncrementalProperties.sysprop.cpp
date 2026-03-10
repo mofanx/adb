@@ -15,6 +15,8 @@
 
 #include <android-base/parseint.h>
 
+#include "IncrementalProperties.sysprop.h"
+
 #ifdef __BIONIC__
 #include <sys/system_properties.h>
 [[maybe_unused]] static bool SetProp(const char* key, const char* value) {
