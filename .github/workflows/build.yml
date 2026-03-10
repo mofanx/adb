@@ -65,13 +65,17 @@ jobs:
       - name: Fetch AOSP source code
         run: python3 get_source.py --tags ${{ env.AOSP_TAG }}
 
-      - name: Build protobuf for host
+      - name: Install host protoc
         run: |
-          cd src/protobuf
-          mkdir -p host-build && cd host-build
-          cmake -GNinja -Dprotobuf_BUILD_TESTS=OFF ..
-          ninja -j$(nproc) protoc
-          echo "PROTOC_PATH=$(pwd)/protoc" >> $GITHUB_ENV
+          # Use protoc 3.21.12 compatible with AOSP protobuf
+          PROTOC_VERSION=21.12
+          wget -q https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip
+          mkdir -p protoc-host
+          unzip -q protoc-${PROTOC_VERSION}-linux-x86_64.zip -d protoc-host
+          rm protoc-${PROTOC_VERSION}-linux-x86_64.zip
+          chmod +x protoc-host/bin/protoc
+          echo "PROTOC_PATH=$(pwd)/protoc-host/bin/protoc" >> $GITHUB_ENV
+          $(pwd)/protoc-host/bin/protoc --version
 
       - name: Build ADB for ${{ matrix.abi }}
         run: |
